@@ -1,0 +1,60 @@
+* Packages
+Disclaimer about editing the configuration.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;;;; init. el
+  ;;;;
+  ;;;; This is a generated file. DO NOT EDIT IT.
+  ;;;; Edit `config.org' and use `org-babel-tangle'
+  ;;;; The default hotkey is C-c C-v t
+#+END_SRC
+** Set up package repositories
+- Require the functions to handle packages
+- Add repos to make available all packages
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+  (package-initialize)
+#+END_SRC
+** Set up use-package
+If not installed yet, then install `use-package'.
+This is useful when migrating to a new computer.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (eval-when-compile
+    (require 'use-package))
+#+END_SRC
+* Web
+Install web-mode
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package web-mode :ensure t)
+#+END_SRC
+Associate web-related files with web-modes.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (let ((extensions '("css"
+                      "less"
+                      "js"
+                      "html"
+                      "jinja")))
+    (dolist (ext extensions)
+      (add-to-list 'auto-mode-alist `(,(concat "\\." ext "\\'") . web-mode))))
+#+END_SRC
+Tell web-mode that `less' files are `css' files
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (setq web-mode-content-types-alist
+        '(("css" . "\\.less\\'")))
+#+END_SRC
+* Theme
+Install the `atom one dark' theme
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package atom-one-dark-theme :ensure t)
+#+END_SRC
+Load it
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (load-theme 'atom-one-dark t)
+#+END_SRC
