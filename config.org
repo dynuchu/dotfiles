@@ -78,3 +78,15 @@ Load it
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (load-theme 'atom-one-dark t)
 #+END_SRC
+** Nyan Mode
+Nyan nyan nyan nyan
+*** Install
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package nyan-mode
+    :ensure t
+    :config (setq nyan-animate-nyan-cat t))
+#+END_SRC
+*** Enable
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (nyan-mode)
+#+END_SRC
